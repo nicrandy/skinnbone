@@ -152,7 +152,7 @@ body {
 
 .slider-frame {
   width: min(100%, 500px);
-  aspect-ratio: 1 / 1;
+  height: min(100%, 650px);
   display: grid;
   place-items: center;
   padding: 0;
