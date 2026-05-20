@@ -68,12 +68,24 @@ function App() {
           >
             ←
           </button>
-          <div className="slider-frame">
-            {images.length ? (
-              <img src={images[current]} alt={`Product ${current + 1}`} className="slide-image" />
-            ) : (
-              <div className="slide-placeholder">No product images found</div>
-            )}
+          <div className="carousel-viewport">
+            <div className="carousel-track">
+              {[-2, -1, 0, 1, 2].map((offset) => {
+                const imageIndex = (current + offset + images.length) % images.length;
+                const scaleClass = offset === 0 ? 'scale-large' : offset === -1 || offset === 1 ? 'scale-medium' : 'scale-small';
+                return (
+                  <div key={offset} className={`carousel-item ${scaleClass}`}>
+                    {images.length ? (
+                      <img
+                        src={images[imageIndex]}
+                        alt={`Product ${imageIndex + 1}`}
+                        className="carousel-image"
+                      />
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <button
             className="slider-button slider-button-next"
@@ -88,7 +100,7 @@ function App() {
       <section className="upcoming-section">
         <div className="section-heading">
           <p className="section-label">Upcoming Events</p>
-          <h2>Where Skin n Bone will be showing next</h2>
+          <h2>2026 Calendar</h2>
         </div>
         <div className="event-grid">
           {upcomingEvents.map((event) => (
