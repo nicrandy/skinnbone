@@ -71,8 +71,28 @@ body {
   margin-bottom: 2rem;
 }
 
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
 .hero-copy {
   max-width: 600px;
+}
+
+.hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.metallic-logo {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
 }
 
 .eyebrow {
@@ -340,6 +360,10 @@ body {
 @media (max-width: 900px) {
   .hero-section {
     padding: 2.5rem;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
   }
 
   .site-header {

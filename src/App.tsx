@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import logo from '../images/skin n bone logo.png';
+import metallicLogo from '../images/skin n bone metalic logo.png';
 
 const productImages = import.meta.glob('../images/product_images/*.{png,jpg,jpeg,gif,webp}', { eager: true, import: 'default' });
 
@@ -43,13 +44,18 @@ function App() {
       </header>
 
       <main className="hero-section">
-        <div className="hero-copy">
-          <span className="eyebrow">Oddities & Faux Taxidermy</span>
-          <h1>Curios for collectors, crafted with uncanny care.</h1>
-          <p>
-            Skin n Bone creates handcrafted faux taxidermy, oddities, bats, beetles, custom guitars, jackalopes, earrings and custom props.
-            The product carousel shows recent work and new drops.
-          </p>
+        <div className="hero-content">
+          <div className="hero-copy">
+            <span className="eyebrow">Oddities & Faux Taxidermy</span>
+            <h1>Curios for collectors, crafted with uncanny care.</h1>
+            <p>
+              Skin n Bone creates handcrafted faux taxidermy, oddities, bats, beetles, custom guitars, jackalopes, earrings and custom props.
+              The product carousel shows recent work and new drops.
+            </p>
+          </div>
+          <div className="hero-image">
+            <img src={metallicLogo} alt="Skin n Bone metallic logo" className="metallic-logo" />
+          </div>
         </div>
       </main>
 
