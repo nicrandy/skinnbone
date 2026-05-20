@@ -1,15 +1,45 @@
+import { useEffect, useMemo, useState } from 'react';
 import logo from '../images/skin n bone logo.png';
 
+const productImages = import.meta.glob('../images/product_images/*.{png,jpg,jpeg,gif,webp}', { eager: true, import: 'default' });
+
+const upcomingEvents = [
+  { title: 'Big Sky Ren Faire', location: 'Big Sky, MT', date: 'May 23 - 25' },
+  { title: 'Billings Ren Fest', location: 'Billings, MT', date: 'June 6 - 7' },
+  { title: 'Wonderwood', location: 'Sheridan, WY', date: 'July 24 - 26' },
+  { title: 'Artist in residence', location: 'Ednis K Wilkins State Park, WY', date: 'July 29 - August 1' },
+  { title: 'Red Lodge Ren Faire', location: 'Red Lodge, MT', date: 'August 1 - 2' },
+  { title: 'Forget-Me-Knot Music Festival', location: 'Cooke City, MT', date: 'August 14 - 15' },
+  { title: 'Bozeman Ren Fest', location: 'Bozeman, MT', date: 'August 22 - 23' },
+  { title: 'All-Hallows', location: 'Billings, MT', date: 'October 3 - 4' },
+  { title: 'Spokane Ren Faire', location: 'Spokane, WA', date: 'October 3 - 4' },
+  { title: 'Yule-Aissance', location: 'Billings, MT', date: 'December 13 - 14' },
+];
+
 function App() {
+  const images = useMemo(
+    () => Object.values(productImages).filter(Boolean) as string[],
+    []
+  );
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!images.length) return undefined;
+    const interval = window.setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 4500);
+    return () => window.clearInterval(interval);
+  }, [images.length]);
+
   return (
     <div className="page-shell">
       <header className="site-header">
         <img src={logo} alt="Skin n Bone logo" className="brand-logo" />
-        <nav className="nav-links">
-          <a href="#about">About</a>
-          <a href="#offerings">Offerings</a>
-          <a href="#contact">Contact</a>
-        </nav>
+        <div className="social-links">
+          <a href="https://www.facebook.com/skinnboneoddities" target="_blank" rel="noreferrer">Facebook</a>
+          <a href="https://www.instagram.com/skin_n_bone__/" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.tiktok.com/@skinnboneoddities" target="_blank" rel="noreferrer">TikTok</a>
+        </div>
       </header>
 
       <main className="hero-section">
@@ -17,51 +47,45 @@ function App() {
           <span className="eyebrow">Oddities & Faux Taxidermy</span>
           <h1>Curios for collectors, crafted with uncanny care.</h1>
           <p>
-            Skin n Bone creates handcrafted faux taxidermy, sculpted oddities, and custom props for modern cabinets of curiosity.
-            The banner image is the main branding anchor for the site.
+            Skin n Bone creates handcrafted faux taxidermy, oddities, bats, beetles, custom guitars, jackalopes, earrings and custom props.
+            The product carousel shows recent work and new drops.
           </p>
-          <div className="hero-actions">
-            <a href="#contact" className="button">Order a custom piece</a>
-            <a href="#offerings" className="button button-outline">Explore the collection</a>
-          </div>
         </div>
 
         <div className="hero-visual">
-          <div className="logo-frame">
-            <img src={logo} alt="Skin n Bone banner logo" className="hero-logo" />
+          <div className="slider-frame">
+            {images.length ? (
+              <img src={images[current]} alt={`Product ${current + 1}`} className="slide-image" />
+            ) : (
+              <div className="slide-placeholder">No product images found</div>
+            )}
           </div>
         </div>
       </main>
 
-      <section id="about" className="content-block">
+      <section className="upcoming-section">
         <div className="section-heading">
-          <p className="section-label">About</p>
-          <h2>Curious craftsmanship for the uncanny collector.</h2>
+          <p className="section-label">Upcoming Events</p>
+          <h2>Where Skin n Bone will be showing next</h2>
         </div>
-        <p className="section-copy">
-          Our studio mixes custom faux taxidermy, sculpted oddities, and atmospheric props for retail, editorial, and immersive spaces.
-          Every installation is designed to feel exotic, tactile, and unmistakably Skin n Bone.
-        </p>
+        <div className="event-grid">
+          {upcomingEvents.map((event) => (
+            <article key={event.title} className="event-card">
+              <h3>{event.title}</h3>
+              <p className="event-location">{event.location}</p>
+              <p className="event-date">{event.date}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <section id="offerings" className="features-grid">
-        <article className="feature-card">
-          <h3>Faux taxidermy</h3>
-          <p>Custom mounts and wall installations that look striking in any dark study or boutique gallery.</p>
-        </article>
-        <article className="feature-card">
-          <h3>Cabinet curios</h3>
-          <p>Skulls, preserved specimens, and cabinet curios designed to feel collectible and otherworldly.</p>
-        </article>
-        <article className="feature-card">
-          <h3>Event props</h3>
-          <p>One-of-a-kind props and set dressing for activations, photo shoots, and immersive events.</p>
-        </article>
-      </section>
-
-      <footer id="contact" className="site-footer">
-        <p>For commissions, collaborations, or custom orders, reach out and let's bring your curiosity cabinet to life.</p>
-        <a href="mailto:hello@skinnbone.com" className="button button-outline">Contact Skin n Bone</a>
+      <footer className="site-footer">
+        <p>Follow us for new drops, commissions, and rare oddities.</p>
+        <div className="social-links footer-links">
+          <a href="https://www.facebook.com/skinnboneoddities" target="_blank" rel="noreferrer">Facebook</a>
+          <a href="https://www.instagram.com/skin_n_bone__/" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.tiktok.com/@skinnboneoddities" target="_blank" rel="noreferrer">TikTok</a>
+        </div>
       </footer>
     </div>
   );
