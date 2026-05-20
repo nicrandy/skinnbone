@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node_modules\\.bin\\tsc.cmd && node_modules\\.bin\\vite.cmd build",
+    "build": "npm exec tsc -- && npm exec vite -- build",
     "preview": "vite preview",
     "predeploy": "npm run build && node -e \"const fs = require('fs'); fs.copyFileSync('CNAME', 'dist/CNAME');\"",
     "deploy": "gh-pages -d dist"
