@@ -53,12 +53,28 @@ function App() {
         </div>
 
         <div className="hero-visual">
-          <div className="slider-frame">
-            {images.length ? (
-              <img src={images[current]} alt={`Product ${current + 1}`} className="slide-image" />
-            ) : (
-              <div className="slide-placeholder">No product images found</div>
-            )}
+          <div className="slider-container">
+            <button
+              className="slider-button slider-button-prev"
+              onClick={() => setCurrent((prev) => (prev - 1 + images.length) % images.length)}
+              aria-label="Previous image"
+            >
+              ←
+            </button>
+            <div className="slider-frame">
+              {images.length ? (
+                <img src={images[current]} alt={`Product ${current + 1}`} className="slide-image" />
+              ) : (
+                <div className="slide-placeholder">No product images found</div>
+              )}
+            </div>
+            <button
+              className="slider-button slider-button-next"
+              onClick={() => setCurrent((prev) => (prev + 1) % images.length)}
+              aria-label="Next image"
+            >
+              →
+            </button>
           </div>
         </div>
       </main>
